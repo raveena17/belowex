@@ -1,0 +1,87 @@
+class Fisher
+    {
+
+        private List<Fish> fisherManList;
+        private string name;
+        private int id;
+
+        public Fisher(string name)
+        {
+            this.fisherManList = new List<Fish>();
+            this.name = name;
+
+        }
+
+        public string Name
+        {
+            get
+            {
+                return this.name;
+            }
+            set
+            {
+                this.name = value;
+            }
+
+        }
+        public int Id
+        {
+            get
+            {
+                return this.id;
+            }
+            set
+            {
+                this.id = value;
+            }
+        }
+
+        public List<Fish> FisherManList
+        {
+            get
+            {
+                return this.fisherManList;
+            }
+            set
+            {
+                this.fisherManList = value;
+            }
+        }
+
+        public Fish Catch(Pond pond, int size)
+        {
+            Fish catchedFish = pond.CatchFish();
+            if (catchedFish.Size >= size)
+            {
+               this. fisherManList.Add(catchedFish);
+               Console.WriteLine(this.fisherManList);
+            
+                pond.RemoveFish(catchedFish);
+                //fisherManList.Add(catchedFish);
+            }
+            else
+            {
+
+                return catchedFish;
+            }
+            return catchedFish;
+        }
+
+       /* public void AddFishIntoFisherBucket(Fish Fissh)
+        {
+            this.fisherManList.Add(Fissh);
+
+            Console.WriteLine(this.FisherManList);
+        }*/
+
+        public void DisplayFish()
+        {
+            foreach (Fish fis in fisherManList)
+            {
+                Console.WriteLine("fishname" + " " + fis.Name + "\t " + "fishsize" + " " + fis.Size);
+            }
+        }
+    }
+
+}
+

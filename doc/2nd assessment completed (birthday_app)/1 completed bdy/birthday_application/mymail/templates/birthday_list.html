@@ -1,0 +1,12 @@
+{% for employees in employee %}
+    Name:{{ employees.name }}<br>
+    Date_of_birth:{{ employees.date_of_birth }}<br>
+    Email_id:{{employees.mail_id}}<br><br><br>
+{% endfor %}
+
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" />
+
+
+

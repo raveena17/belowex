@@ -1,0 +1,45 @@
+<head>
+  
+  <h2><center> EMPLOYEE LIST </center></h2>
+ 
+<style>
+body{
+  background-color: gray;
+}
+</style>
+</head>
+ 
+ <body><center>
+{% if postlist %}
+  <form action="/mymail/birthdaylist/" method="post">
+  
+  {% csrf_token %}
+  <input type = "submit" value="BIRTHDAY EMPLOYEES" name="add"/></br>
+  
+  </form>  
+
+  
+  <form action="/mymail/get_value/" method="post">
+  
+  {% csrf_token %}
+  <input type = "submit" value="ADD NEW EMPLOYEE" name="add"/></br>
+  
+  </form>
+ 
+ {% for post in postlist %}
+   <form action="/mymail/delete/{{post.id}}/" method="post">
+   
+   {% csrf_token %}
+     <label for="post{{ forloop.counter }}">Name : {{post.name}} <br> Recognition : {{post.recognition}} <br> Gender : {{post.gender}} <br>
+      EmailID: {{post.mail_id}} <br> Date_Of_Birth : {{post.date_of_birth}} </label></br>
+     <input type = "submit" value="DELETE" name="delete" id="{{forloop.counter}}"/></br>
+
+   </form>  
+ 
+ {% endfor %}   
+
+{% else %}
+   
+   <strong>There is no post</strong>
+{%endif%}
+</center></body>

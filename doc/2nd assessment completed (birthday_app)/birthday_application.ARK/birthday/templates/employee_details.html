@@ -1,0 +1,99 @@
+<html>
+<head>
+  {% load static %}
+  <script src="{% static 'js/jquery-1.12.4.js' %}"></script>
+  <script src="{% static 'js/jquery.dataTables.min.js' %}"></script>
+  <!-- <link rel="stylesheet" type="text/css" href="{% static 'css/jquery.dataTables.min.css' %}" /> -->
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css
+" />
+  <h2><center> EMPLOYEE LIST </center></h2>
+  
+  <div id="msg" align="center"></div>
+
+
+<style>
+body{
+  background-color: gray;
+}
+</style>
+
+
+
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#table_id').DataTable({"scrollX": true}); 
+
+} );
+
+
+function delete_fun(id){
+  $.ajax({ 
+  url: '/birthday/delete_employee/', 
+  type: 'GET', 
+  data: {"id":id},
+ success: function(json) {
+                       
+                       location.reload(); 
+                       $("#msg").html(json);
+                   }
+});
+}
+</script>
+</head>
+
+ 
+ <body><center>
+{% if postlist %} 
+   
+     {% csrf_token %}
+     <table border="1" id="table_id">
+        <thead>
+        <tr>
+          <th>Name</th>
+          <th>Designation</th>
+          <th>Gender</th>
+          <th>EmailID</th>
+          <th>Date_Of_Birth</th>
+          <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+          {% for post in postlist %}
+          <label for="post{{ forloop.counter }}">
+     <tr>
+          <td>{{post.name}}</td>
+          <td>{{post.designation}}</td>
+          <td>{{post.gender}}</td>
+          <td>{{post.mail_id}}</td>
+          <td>{{post.date_of_birth}}</td>
+          <td><input type = "button" onclick="delete_fun({{post.id}})" value="DELETE" name="delete" id="{{forloop.counter}}"/></td>
+            
+        </tr></label>
+        {% endfor %}
+       
+     </tbody>
+     </table> 
+
+
+  <form action="/birthday/employee_register/" method="post">
+  
+  {% csrf_token %}
+
+  <input type = "submit" value="AGAIN ADD EMPLOYEE" name="add" style="position: absolute; top: 0; right: 0;"/></br>
+  </form>
+
+  
+  <form action="/birthday/" method="post">
+  
+  {% csrf_token %}
+  <input type = "submit" value="MOVE HOMEPAGE" name="add" style="position: absolute; top: 0; left: 0;"/></br>
+  
+  </form>
+
+    
+{% else %}    
+
+   <strong>There is no post</strong>
+{%endif%}
+</body></center>
+</html>

@@ -1,0 +1,76 @@
+class Pond
+    {
+        private List<Fish> listOfFish = new List<Fish>();
+
+        private string name;
+
+        public Pond(string name)
+        {
+            this.name = name;
+        }
+
+        public List<Fish> ListOfFish
+        {
+            get
+            {
+                return this.listOfFish;
+            }
+            set
+            {
+                this.listOfFish = value;
+            }
+        }
+
+        public string Name
+        {
+            get
+            {
+                return this.name;
+            }
+            set
+            {
+                this.name = value;
+            }
+        }
+
+        public void AddFish(Fish fish)
+        {
+            this.listOfFish.Add(fish);
+           // Console.WriteLine(this.listOfFish);
+
+        }
+
+        public Fish CatchFish()
+        {
+            Random rand = new Random();
+            int randomIndex = rand.Next(listOfFish.Count);
+            Console.WriteLine(listOfFish[randomIndex].Name, listOfFish[randomIndex].Size);
+            return listOfFish[randomIndex];
+        }
+
+        public void RemoveFish(Fish fish)
+        {
+
+            this.listOfFish.Remove(fish);
+
+            Console.WriteLine(this.listOfFish);
+        }
+
+        public void DisplayFish()
+        {
+            foreach (Fish fis in ListOfFish)
+            {
+                Console.WriteLine("fishname" + " " + fis.Name + "\t " + "fishsize" + " " + fis.Size);
+            }
+        }
+
+        public override string ToString()
+        {
+            return this.Name;
+        }
+
+    }
+}
+
+
+

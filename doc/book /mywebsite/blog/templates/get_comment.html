@@ -1,0 +1,10 @@
+{% if postlist %}
+  <form action="/blog/add_comment/{{postlist.id}}/" method="POST">
+   {% csrf_token %}
+   <label for="post{{ forloop.counter }}">{{postlist.book_name}}</label>
+     <input type="text" name="comment" id="{{forloop.counter}}">
+     <input type = "submit" value="post" id="{{forloop.counter}}"/></br>
+  </form>
+{% else %}
+   <strong>There is no post</strong>
+{%endif%}

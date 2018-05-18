@@ -1,0 +1,15 @@
+{% if postlist %}
+  <form action="/blog/get_value/" method="post">
+  {% csrf_token %}
+  <input type = "submit" value="add book" name="add"/></br>
+  </form>
+ {% for post in postlist %}
+   <form action="/blog/delete/{{post.id}}/" method="post">
+   {% csrf_token %}
+     <label for="post{{ forloop.counter }}">{{post.book_name}}</label></br>
+     <input type = "submit" value="delete" name="delete" id="{{forloop.counter}}"/></br>
+   </form>  
+ {% endfor %}   
+{% else %}
+   <strong>There is no post</strong>
+{%endif%}

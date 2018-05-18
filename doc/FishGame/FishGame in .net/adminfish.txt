@@ -1,0 +1,51 @@
+class Admin
+    {
+
+        private int uniqueId = 2;
+
+        private int GetNewUniqueId()
+        {
+            int id;
+            id = this.uniqueId++;
+            return id;
+        }
+
+        public Admin()
+        {
+        }
+
+        public bool AddFishToPond(Fish fish, Pond pond)
+        {
+            return true;
+        }
+
+        public Pond CreatePond(string name)
+        {
+            Pond pond = new Pond(name);
+            Console.WriteLine("pond {0} created", pond.Name);
+            return pond;
+        }
+
+        public Fish CreateFish(string name, int size)
+        {
+            Fish fish = new Fish(name, size);
+            Console.WriteLine("fish {0} \t {1} cm created ", fish.Name, fish.Size);
+            return fish;
+        }
+
+        public Fisher CreateFisher(string name)
+        {
+            Fisher fisher = new Fisher(name);
+            fisher.Id = this.GetNewUniqueId();
+
+            Console.WriteLine("fisherMan {0} and id {1} is created ", fisher.Name, fisher.Id);
+
+            return fisher;
+        }
+
+    }
+
+}
+
+
+

@@ -1,0 +1,12 @@
+{% if commentlist %}
+  {% for  comment in commentlist %}
+    <label for="post{{ forloop.counter }}">{{comment.comment}}</label><br>
+  {% endfor %}
+    <form action="/blog/add_book/logout/" method="post">
+     {% csrf_token %}
+           <input type="submit" name="logout" value="logout">
+    </form>
+  
+{% else %}
+   <strong>There is no comment</strong>
+{%endif%}

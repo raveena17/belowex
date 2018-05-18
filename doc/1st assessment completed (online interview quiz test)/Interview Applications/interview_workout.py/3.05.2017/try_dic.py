@@ -1,0 +1,304 @@
+python_questions = {
+                        
+            '1' : {
+                    'QUS': 'python is a ?',
+                    'OPTIONS': {
+                            'A': 'Development environment',
+                            'B': 'Programming language',
+                            'C': 'Set of editing tools'
+                    },
+                    'ANS': 'B'
+            },
+            '2' : {
+                    'QUS': ' Which of these statements is true',
+                    'OPTIONS': {
+                            'A': 'CPython is an implementation of python',
+                            'B': 'Pyhon code must be always compiled',
+                            'C': 'Python 1.7 is the most widely used version'
+                    },
+                    'ANS': 'A'
+            },
+            '3' : {
+                    'QUS': 'Which line code produces an error?',
+                    'OPTIONS': {
+                            'A': 'str(7)+str(eight)',
+                            'B': 'str(5)+6',
+                            'C': '3+4',
+                    },
+                    'ANS': 'B'
+            },
+            '4' : {
+                    'QUS': 'What are anonymous functions called',
+                    'OPTIONS': {
+                            'A': 'lamdas',
+                            'B': 'lombdas',
+                            'C': 'lambdas'
+                    },
+                    'ANS': 'C'
+            },
+            '5' : {
+                    'QUS': 'What statement is used in funcions to turn them into generators',
+                    'OPTIONS': {
+                            'A': 'yield',
+                            'B': 'generate',
+                            'C': 'return'
+                    },
+                    'ANS': 'A'
+            },
+            '6' : {
+                    'QUS': 'Which of the following data types does not allow duplicate values',
+                    'OPTIONS': {
+                            'A': 'Dictionaries',
+                            'B': 'Tuples',
+                            'C': 'Sets'
+                    },
+                    'ANS': 'C'
+            },
+            '7' : {
+                    'QUS': 'What is the result of this code ?',
+                    'OPTIONS': {
+                            'A': '0',
+                            'B': '1',
+                            'C': '7'
+                    },
+                    'ANS': 'B'
+            },
+            '8' : {
+                    'QUS': 'What type of object is a method ?',
+                    'OPTIONS': {
+                            'A': 'Integer',
+                            'B': 'class',
+                            'C': 'Function'
+                    },
+                    'ANS': 'C'
+            },
+            '9' : {
+                    'QUS': 'What error is caused by trying to access unknown attributes ?',
+                    'OPTIONS': {
+                            'A': 'NameError',
+                            'B': 'ValueError',
+                            'C': 'AttributeError'
+                    },
+                    'ANS': 'C'
+            },
+            '10' : {
+                    'QUS': 'What is the superclass of a class ?',
+                    'OPTIONS': {
+                            'A': 'The class it inherits from',
+                            'B': 'The class it is an instance of',
+                            'C': 'The first class that inherits from it'
+                    },
+                    'ANS': 'A'
+            }
+                
+    }
+
+java_questions = {
+                        
+            '1' : {
+                    'QUS': 'Can we compare int variable with a boolean variable?',
+                    'OPTIONS': {
+                            'A': 'True ',
+                            'B': 'False'
+                    },
+                    'ANS': 'B'
+            },
+            '2' : {
+                    'QUS': 'What is the size of boolean variable?',
+                    'OPTIONS': {
+                            'A': '8 bit',
+                            'B': '16 bit',
+                            'C': '32 bit'
+                    },
+                    'ANS': 'B'
+            },
+            '3' : {
+                    'QUS': 'What is the default value of String variable?',
+                    'OPTIONS': {
+                            'A': '""',
+                            'B': '', 
+                            'C': 'null'
+                    },
+                    'ANS': 'C'
+            },
+            '4' : {
+                    'QUS': 'Which of the following is false about String?',
+                    'OPTIONS': {
+                            'A': 'String is immutable',
+                            'B': 'String can be created using new operator',
+                            'C': 'String is a primary data type'
+                    },
+                    'ANS': 'C'
+            },
+            '5' : {
+                    'QUS': 'What is local variable?',
+                    'OPTIONS': {
+                            'A': 'Variables defined inside methods, constructors or blocks are called local variables',
+                            'B': 'Variables defined outside methods, constructors or blocks are called local variables',
+                            'C': 'Static variables defined outside methods, constructors or blocks are called local variables'
+                    },
+                    'ANS': 'A'
+            },
+            '6' : {
+                    'QUS': 'What is static block?',
+                    'OPTIONS': {
+                            'A': 'It is used to create syncronized code',
+                            'B': 'There is no such block',
+                            'C': 'It is used to initialize the static data member,It is excuted before main method at the time of class loading'
+                    },
+                    'ANS': 'C'
+            },
+            '7' : {
+                    'QUS': 'When static binding occurs?',
+                    'OPTIONS': {
+                            'A': 'Static binding occurs during Compile time',
+                            'B': 'Static binding occurs during load time',
+                            'C': 'Static binding occurs during runtime'
+                    },
+                    'ANS': 'A'
+            },
+            '8' : {
+                    'QUS': 'What is Serialization?',
+                    'OPTIONS': {
+                            'A': 'Serialization is the process of writing the state of an object to another object',
+                            'B': 'Serialization is the process of writing the state of an object to a byte stream',
+                            'C': 'Both of the above'
+                    },
+                    'ANS': 'B'
+            },
+            '9' : {
+                    'QUS': 'Can constructor be inherited?',
+                    'OPTIONS': {
+                            'A': 'True',
+                            'B': 'False'
+                        
+                    },
+                    'ANS': 'B'
+            },
+            '10' : {
+                    'QUS': 'What is the superclass of a class ?',
+                    'OPTIONS': {
+                            'A': 'marker interface is an interface with no method',
+                            'B': 'marker interface is an interface with single method, mark()',
+                            'C': 'marker interface is an interface with single method, marker()'
+                    },
+                    'ANS': 'A'
+            }
+                
+    }
+
+
+class Attendee:
+        def __init__(self, name, language):
+                self.name = name
+                self.language = language
+                if self.language == "python":
+                        self.questions = python_questions
+                else:
+                        self.questions = java_questions
+                        
+                self.current_question = '1'
+                self.correct_answers = []
+                self.wrong_answers = []
+                self.skiped_questions = []
+                        
+        def start(self):
+                print self.questions[self.current_question]['QUS']
+                
+                for opt, opt_v in self.questions[self.current_question]['OPTIONS'].iteritems():
+                        print opt + " : " + opt_v
+                        
+                print "If you want to skip type N"
+                ans = raw_input("Enter your Ans: ")
+                
+                if ans == self.questions[self.current_question]['ANS']:
+                        self.correct_answers.append(self.current_question)
+                elif ans == "N":
+                        self.skiped_questions.append(self.current_question)
+                else:
+                        self.wrong_answers.append(self.current_question)
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+##        def next(self):
+##                self.current_question = str(int(self.current_question)+1)
+##                if self.current_question not in self.questions.keys():
+##                        self.current_question = str(int(self.current_question)-1)
+##                        print "Already in last question"
+##                
+##        def submit(self):
+##                pass
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                     

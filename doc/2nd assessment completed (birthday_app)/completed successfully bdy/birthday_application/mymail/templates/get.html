@@ -1,0 +1,39 @@
+<head>
+	<h1><marquee>ADD NEW EMPLOYEES</marquee></h1><br><br>
+	<h2><center> REGISTRATION </center></h2>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script>
+  $( function() {
+    $( "#Date_of_birth" ).datepicker({dateFormat: 'yy-mm-dd'});
+    $( "#Create_date" ).datepicker({dateFormat: 'yy-mm-dd'});
+  } );
+  </script>
+
+ 
+<style>
+body{
+	background-color: gray;
+}
+</style>
+</head>
+ 
+ <body><center>
+   <form action="/mymail/add_employee/" method="post">
+   
+   {% csrf_token %}
+         Employee Name:<input type="textbox" name="name"></br>
+         Recognition  :<input type="text" name="recognition"></br>
+         Gender       :<input type="text" name="gender"></br>
+         Mail_id:<input type="text" name="mail_id"></br>
+         Date_of_birth:<input type="text" id="Date_of_birth" name="date_of_birth"></br>
+         Create_date:<input type="text" id="Create_date" name="create_date"></br>
+                    <input type="submit" value="save" name="add">
+                    <input type="reset">
+   </form></center>
+ </body>

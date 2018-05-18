@@ -1,0 +1,18 @@
+<head>
+	<h1><marquee>BIRTHDAY EMPLOYEES</marquee></h1><br><br>
+</head>
+<b>
+{% for employees in employee_details %}
+    Name:{{ employees.name }}<br>
+    Date_of_birth:{{ employees.date_of_birth }}<br>
+    Email_id:{{employees.mail_id}}<br><br><br>
+{% endfor %}
+
+{% load static %}
+</b>
+
+<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" />
+
+
+
+

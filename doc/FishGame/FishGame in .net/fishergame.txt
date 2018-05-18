@@ -1,0 +1,87 @@
+  class fishgames
+    {
+        public static void Main(string[] args)
+        {
+            Admin admin = new Admin();
+            Pond pond = new Pond("nile");
+            Fisher fisher = new Fisher("ss");
+            Console.WriteLine("Welcome To Fish program");
+            int MenuChoice = 0;
+            while (MenuChoice != 8)
+            {
+
+                Console.Write("\n\t 1) Createfish");
+                Console.Write("\n\t 2) CreatePond");
+                Console.Write("\n\t 3) CreateFisherMan");
+                Console.Write("\n\t 4) AddFish Into pond");
+                Console.Write("\n\t 5) CatchFish");
+                Console.Write("\n\t 6) Display\n\n");
+                Console.Write("\n\t 7) DisplayFisherList");
+
+                Console.Write("\n\tChoose 1-7: ");
+
+                MenuChoice = Convert.ToInt32(Console.ReadLine());
+                switch (MenuChoice)
+                {
+                    case 1:
+                        Console.Write("\ncreatefish\n");
+                        Fish fish=admin.CreateFish("pikes", 2);
+                        Fish fishes=admin.CreateFish("star", 3);
+                        Fish fishe=admin.CreateFish("golden", 4);
+                        pond.AddFish(fish);
+                        pond.AddFish(fishes);
+                        pond.AddFish(fishe);
+                        break;
+                    case 2:
+                        Console.WriteLine("\nEnter the name of pond\n");
+                        string name = Console.ReadLine();
+                        Pond newPond = admin.CreatePond(name);
+                        break;
+                    case 3:
+                        Console.WriteLine("\nEnter the name of FisherMan\n");
+                        string fisherManName = Console.ReadLine();
+                        Fisher newFisher = admin.CreateFisher(fisherManName);
+                        break;
+                    case 4:
+                        Console.WriteLine("\n AddFish Into Pond\n");
+                        Console.WriteLine("Enter How many fish want you to add?\n");
+                        int num = Convert.ToInt32(Console.ReadLine());
+                        for (int i = 0; i < num; i++)
+                        {
+                            Console.WriteLine("\nEnter the name of fish\n");
+                            string fishName = Console.ReadLine();
+                            Console.WriteLine("\n Enter the size of fish\n");
+                            int fishSize = Convert.ToInt32(Console.ReadLine());
+                            Fish newFish = admin.CreateFish(fishName, fishSize);
+                            pond.AddFish(newFish);
+                            pond.DisplayFish();
+                            //Console.ReadLine();
+                        }
+                        //Console.ReadLine();
+                        break;
+                    case 5:
+                        Console.WriteLine("\n Catch Fish From pond");
+                        Console.WriteLine("Enter your prefered size");
+                        int preferedsize = Convert.ToInt32(Console.ReadLine());
+                        Fisher fisherr = admin.CreateFisher("Suganya");
+                        fisherr.Catch(pond, 3);
+                        Console.ReadLine();
+                        break;
+                    case 6:
+                       pond.DisplayFish();
+                     // fisher.DisplayFish();
+                       break;
+                    case 7:
+                       //pond.DisplayFish();
+                       fisher.DisplayFish();
+                       break;
+                    default:
+                         Console.WriteLine("Sorry, invalid selection");
+                         break;
+                 }
+                 Console.ReadLine();
+
+                }
+            }
+        }
+    }
