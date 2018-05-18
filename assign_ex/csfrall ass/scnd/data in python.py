@@ -1,0 +1,12 @@
+pi=[3,1,4,1,5,9]
+e=[2,7,1]
+answer=e[0:2]+pi[-2:]
+print(answer)
+answer1=e[1:]
+print(answer1)
+answer2=pi[1:]
+print(answer2)
+answer3=(pi[-1:]+e[-1:]+pi[1:2])
+print(answer3)
+answer4=(pi[1:2]+e[0:1]+pi[0:1]+pi[2:3]+pi[-2:-1])
+print(answer4)
