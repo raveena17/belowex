@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="postitem">
+<h2>Welcome to Tamil Thedal</h2>
+<form action="/search/" method="post">
+<table border="0" cellpadding="5" cellspacing="5" width="90%">
+    <tr>
+        <td>Tamil Thedal <input type="text"  style="width:250px; margin-left:20px; margin-right:20px;margin-bottom:5px;" id="transliterate"  name="transliterate" value = "{{searchword}}" />
+        <input type="submit" style="width:60px;"  value="search" />
+        </td>
+    </tr>
+    <tr>
+        <td> Hit space bar after entering in search box , to convert. Press Ctrl + G to toggle text conversion in Tamil and English</td>
+    </tr>
+</table>
+</form>
+<table>
+{% if result %}
+    <tr><h4>Search Results:</h4></tr>
+    <tr><td>Key</td><td>Context</td></tr>
+    {% for each in result %}
+	<tr>
+        <td valign="top" style="font-size:14px;font-family:Lohit Tamil">
+        {% if user and user.is_authenticated %}
+        <a href="/editentry/?id={{ each.id }}"><b>{{ each.key }}</b></a>
+        {% else %}
+        <b>{{ each.key }}</b>
+        {% endif %}
+        </td>
+        <td style="font-size:12px;font-family:Lohit Tamil">
+            {{ each.content|linebreaks }}
+        </td>
+    </tr>
+	{% endfor %}
+{% else %}
+    <tr><td colspan="3"><h4>
+    {% if searchword %}
+        Sorry, no results found
+    {% endif %}
+    </h4></td></tr>
+{% endif %}
+</table>
+
+</div>
+{% endblock %}

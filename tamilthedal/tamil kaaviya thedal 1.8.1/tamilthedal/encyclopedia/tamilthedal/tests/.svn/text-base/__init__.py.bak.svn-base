@@ -1,0 +1,10 @@
+from encyclopedia.tamilthedal.tests.viewstest import searchTest
+from django.conf import settings
+
+
+
+
+__test__ = {
+   
+    'SEARCH_TESTS': searchTest,
+}

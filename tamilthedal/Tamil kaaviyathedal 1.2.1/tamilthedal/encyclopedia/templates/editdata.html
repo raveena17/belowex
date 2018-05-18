@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+
+{% block js-onload %}
+
+function OnLoad() {
+  var options = {
+      sourceLanguage:
+          google.elements.transliteration.LanguageCode.ENGLISH,
+      destinationLanguage:
+          [google.elements.transliteration.LanguageCode.TAMIL],
+      shortcutKey: 'ctrl+g',
+      transliterationEnabled: true
+  };
+
+  // Create an instance on TransliterationControl with the required
+  // options.
+  var control =
+      new google.elements.transliteration.TransliterationControl(options);
+
+  // Enable transliteration in the textbox with id
+  // 'transliterateTextarea'.
+  control.makeTransliteratable(['key-ta', 'context']);
+}
+
+function deleteEntry(id) {
+    if (id == '')
+        return;
+
+    if (confirm('Are you sure you want to delete this entry?')) {
+        window.location.href = '/deleteentry/?id=' + id;
+    }
+
+}
+
+function validate() {
+    var key = document.editdata.elements['key-ta'].value;
+    var content = document.editdata.elements['context'].value;
+
+    if (key.trim() == '' || content.trim() == '') {
+        alert('Please provide a valid Key in tamil and context');
+        return false;
+    }
+    else {
+        document.editdata.submit();
+    }
+}
+
+{% endblock %}
+
+{% block content %}
+<div class="postitem">
+<h2>{{mode}} Key / Context</h2>
+<form name="editdata" id="editdata" method="POST" action="/saveentry/">
+<table border="0" cellpadding="5" cellspacing="5" width="100%">
+<tr>
+    <td colspan="2"> 
+    Hit space bar after entering in search box , to convert. Press Ctrl + G to toggle text conversion in Tamil and English
+    </td>
+</tr>
+<tr>
+    <td colspan="2">
+    <span class="msg">{{msg}}</span>
+    <input type="hidden" id="mode" name="mode" value="{{mode}}" />
+    <input type="hidden" name="id" value="{{result.id|default:''}}" />
+    </td>
+</tr>
+<tr>
+    <td>
+    <span style="vertical-align:top;width:10px;">Key (Tamil):*</span>
+    </td>
+    <td>
+    <input type="text" style="width:300px;" id="key-ta"  name="key-ta" value="{{result.key_ta|default:''}}" />
+    </td>
+</tr>
+<tr>
+    <td>
+    <span style="vertical-align:top;width:10px;">Key (English):</span>
+    </td>
+    <td>
+    <input type="text" style="width:300px;" id="key-en"  name="key-en" value="{{result.key_en|default:''}}" />
+    </td>
+</tr>
+<tr>
+    <td>
+    <span style="vertical-align:top;width:10px;">Context:*</span>
+    </td>
+    <td>
+    <textarea id="context" name="context" style="width:300px;height:150px;">{{result.content|default:''}}</textarea>
+    </td>
+</tr>
+<tr>
+    <td colspan="2">
+    <input type="button" style="width:60px;" value="Save" onClick="javascript:validate();" />
+    <input type="button" style="width:60px;" value="Delete" onClick="javascript:deleteEntry('{{result.id|default:''}}');" />
+    <input type="button" style="width:60px;" value="Cancel" onClick="javascript:history.go(-1);" />
+    </td>
+</tr>
+</table>
+</form>
+</div>
+{% endblock %}

@@ -1,0 +1,18 @@
+template 2:
+
+menu hover color: #887811
+
+subtitle bar: #CCD6E0
+
+footer: #2276A4
+
+search panel heading border color: #B4A851
+
+
+.........................................
+
+template1:
+
+text color: #757474
+
+submenu border color: #EE9000

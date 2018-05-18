@@ -1,0 +1,9 @@
+The complete tamil contents of the website is present in fulldoc.txt. If you
+make changes to this file or have a new file for the content, do the following:
+
+python indexer.py <name_of_the_file>
+
+This will create the indexes in the "index" directory (WARNING: Existing index
+contents will be lost and the new index will be overwritten)
+
+Update/upload this index folder to tamil thedal's main website

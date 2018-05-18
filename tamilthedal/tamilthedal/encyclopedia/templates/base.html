@@ -1,0 +1,263 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<META NAME="keywords" Content="tamil, thedal, search">
+<META NAME="description" CONTENT="tamil kavya thedal">
+
+<META content="text/html; charset=utf-8" http-equiv=Content-Type>
+<META name=GENERATOR content="MSHTML 8.00.6001.18939">
+
+<title>{% block title %}Tamil Thedal{% endblock %}</title>
+<link rel="stylesheet" type="text/css" href="/static/css/style.css" title="standard-css1" />
+<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+
+<script type="text/javascript">
+function setaction(actionurl)
+{
+	
+ document.adminsearch.action = actionurl;
+}
+
+google.load("elements", "1", {packages: "transliteration"});
+
+{% block js-onload %}
+
+function OnLoad() {
+  
+  var content = document.getElementById('content');
+  
+
+  var options = {
+      sourceLanguage:
+          google.elements.transliteration.LanguageCode.ENGLISH,
+      destinationLanguage:
+          [google.elements.transliteration.LanguageCode.TAMIL],
+      shortcutKey: 'ctrl+g',
+      transliterationEnabled: true
+  };
+
+  // Create an instance on TransliterationControl with the required
+  // options.
+  var control =
+      new google.elements.transliteration.TransliterationControl(options);
+
+  // Enable transliteration in the textbox with id
+  // 'transliterateTextarea'.
+  control.makeTransliteratable(['transliterate']);
+}
+
+{% endblock %}
+
+google.setOnLoadCallback(OnLoad);
+
+/*
+ * This is the function that actually highlights a text string by
+ * adding HTML tags before and after all occurrences of the search
+ * term. You can pass your own tags if you'd like, or if the
+ * highlightStartTag or highlightEndTag parameters are omitted or
+ * are empty strings then the default <font> tags will be used.
+ */
+function doHighlight(bodyText, searchTerm, highlightStartTag, highlightEndTag) 
+{
+  // the highlightStartTag and highlightEndTag parameters are optional
+  if ((!highlightStartTag) || (!highlightEndTag)) {
+    highlightStartTag = "<font style='color:blue; background-color:yellow;'>";
+    highlightEndTag = "</font>";
+  }
+  
+  // find all occurences of the search term in the given text,
+  // and add some "highlight" tags to them (we're not using a
+  // regular expression search, because we want to filter out
+  // matches that occur within HTML tags and script blocks, so
+  // we have to do a little extra validation)
+  var newText = "";
+  var i = -1;
+  var lcSearchTerm = searchTerm.toLowerCase();
+  var lcBodyText = bodyText.toLowerCase();
+    
+  while (bodyText.length > 0) {
+    i = lcBodyText.indexOf(lcSearchTerm, i+1);
+    if (i < 0) {
+      newText += bodyText;
+      bodyText = "";
+    } else {
+      // skip anything inside an HTML tag
+      if (bodyText.lastIndexOf(">", i) >= bodyText.lastIndexOf("<", i)) {
+        // skip anything inside a <script> block
+        if (lcBodyText.lastIndexOf("/script>", i) >= lcBodyText.lastIndexOf("<script", i)) {
+          newText += bodyText.substring(0, i) + highlightStartTag + bodyText.substr(i, searchTerm.length) + highlightEndTag;
+          bodyText = bodyText.substr(i + searchTerm.length);
+          lcBodyText = bodyText.toLowerCase();
+          i = -1;
+        }
+      }
+    }
+  }
+  
+  return newText;
+}
+
+
+/* onload="highlightSearchTerms('{{searchword}}' , 'true');"
+ * This is sort of a wrapper function to the doHighlight function.
+ * It takes the searchText that you pass, optionally splits it into
+ * separate words, and transforms the text on the current web page.
+ * Only the "searchText" parameter is required; all other parameters
+ * are optional and can be omitted.
+ */
+function highlightSearchTerms(searchText, treatAsPhrase, warnOnFailure, highlightStartTag, highlightEndTag)
+{
+  // if the treatAsPhrase parameter is true, then we should search for 
+  // the entire phrase that was entered; otherwise, we will split the
+  // search string so that each word is searched for and highlighted
+  // individually
+  
+  if (treatAsPhrase) {
+    searchArray = [searchText];
+  } else {
+    searchArray = searchText.split(" ");
+  }
+  
+  if (!document.body || typeof(document.body.innerHTML) == "undefined") {
+    if (warnOnFailure) {
+      alert("Sorry, for some reason the text of this page is unavailable. Searching will not work.");
+    }
+    return false;
+  }
+  
+  var bodyText = document.body.innerHTML;
+  for (var i = 0; i < searchArray.length; i++) {
+    bodyText = doHighlight(bodyText, searchArray[i], highlightStartTag, highlightEndTag);
+  }
+  
+  document.body.innerHTML = bodyText;
+  return true;
+}
+
+function highlightSearchText() {
+ try{
+  var search_text = document.getElementById('transliterate').value;
+  if (search_text && search_text.length > 1) {
+    highlightSearchTerms(search_text , 'true');} } catch (err) {}
+}
+</script>
+
+</head>
+
+<body onload = " highlightSearchText(); OnLoad();">
+<div id="wrap">
+<div id="header">
+{% block topmenu %}
+<ul id="topmenu">
+<li><a href="/home/" >Home</a> </li>
+<li><a href="/aboutus/" >About Author</a> </li>
+<li><a href="/contactus/" >Contact Us</a></li>
+<li><a href="/abbreviations/" >Abbreviation</a></li>
+</ul>
+{% endblock %}
+<div class="clear"></div>
+<h1 id="sitename"><a href="#" style="color: White";></a></h1>
+</div>
+<div id="content">
+
+{% block sidebar %}
+<div id="sidebar">
+<div class="sidebartop"></div>
+<div id="sidebarcontent">
+<h2>Search by Alphabets</h2>
+<table>
+<tr>
+<td><span><a href="/letterSearch/?letter=அ">அ</a></span></td>
+<td><span><a href="/letterSearch/?letter=ஆ">ஆ</a></span></td>
+<td><span><a href="/letterSearch/?letter=இ">இ</a></span></td>
+<td><span><a href="/letterSearch/?letter=ஈ">ஈ</a></span></td>
+<td><span><a href="/letterSearch/?letter=உ">உ</a></span></td>
+<td><span><a href="/letterSearch/?letter=ஊ">ஊ</a></span></td>
+<td><span><a href="/letterSearch/?letter=எ">எ</a></span></td>
+</tr>
+<tr>
+<td><span><a href="/letterSearch/?letter=ஏ">ஏ</a></span></td>
+<td><span><a href="/letterSearch/?letter=ஐ">ஐ</a></span></td>
+<td><span><a href="/letterSearch/?letter=ஒ">ஒ</a></span></td>
+<td><span><a href="/letterSearch/?letter=ஓ">ஓ</a></span></td>
+<td><span><a href="/letterSearch/?letter=ஔ">ஔ</a></span></td>
+<td></td>
+<td></td>
+</tr>
+<tr><td><span><a href="/letterSearch/?letter=க">க</a></span></td>
+<td><span><a href="/letterSearch/?letter=ங">ங</a></span></td>
+<td><span><a href="/letterSearch/?letter=ச">ச</a></span></td>
+<td><span><a href="/letterSearch/?letter=ஞ">ஞ</a></span></td>
+<td><span><a href="/letterSearch/?letter=ட">ட</a></span></td>
+<td><span><a href="/letterSearch/?letter=ண">ண</a></span></td>
+<td><span><a href="/letterSearch/?letter=த">த</a></span></td>
+<td></td>
+</tr>
+<tr>
+<td><span><a href="/letterSearch/?letter=ந">ந</a></span></td>
+<td><span><a href="/letterSearch/?letter=ப">ப</a></span></td>
+<td><span><a href="/letterSearch/?letter=ம">ம</a></span></td>
+<td><span><a href="/letterSearch/?letter=ய">ய</a></span></td>
+<td><span><a href="/letterSearch/?letter=ர">ர</a></span></td>
+<td><span><a href="/letterSearch/?letter=ல">ல</a></span></td>
+<td><span><a href="/letterSearch/?letter=வ">வ</a></span></td>
+</tr>
+<tr>
+<td><span><a href="/letterSearch/?letter=ழ">ழ</a></span></td>
+<td><span><a href="/letterSearch/?letter=ள">ள</a></span></td>
+<td><span><a href="/letterSearch/?letter=ற">ற</a></span></td>
+<td><span><a href="/letterSearch/?letter=ன">ன</a></span></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><span><a href="/letterSearch/?letter=ஜ">ஜ</a></span></td>
+<td><span><a href="/letterSearch/?letter=ஸ">ஸ</a></span></td>
+<td><span><a href="/letterSearch/?letter=ஹ">ஹ</a></span></td>
+<td><span><a href="/letterSearch/?letter=ஷ">ஷ</a></span></td>
+<td><span><a href="/letterSearch/?letter=க்ஷ">க்ஷ</a></span></td>
+<td></td>
+<td></td>
+</tr>
+{% if user and user.is_authenticated %}
+<tr>
+<td colspan="7"  height="30px" valign="top" align="center">    
+<h5><a href="/editentry/">Add a new Entry</a></h5>  
+</td>
+</tr>
+{% endif %}
+<tr>
+<td colspan="7"  height="60px" valign="top" align="center">    
+<h5><a href="/static/TamilThedal.pdf">Click here to download the complete list as a single PDF</a>  </h5>  
+</td>
+</tr>
+</table>
+</div>
+</div>
+{% endblock %}
+
+<div id="left">
+<div class="post">
+<div class="posttop"></div>
+    {% block content %}
+        <div class="postitem">
+        <h2>Welcome to Tamil Thedal</h2>
+        </div>
+    {% endblock %}
+</div>
+<div class="postbottom"></div>
+</div>
+
+<div id="postbottom">
+<div class="clear2"></div>
+<div class="clear"></div>
+{% block footer %}
+<div id="footer">
+<p align="center">Copyright 2009. Tamil Thedal.</p>
+</div>
+{% endblock %}
+</div>
+
+</body>
+</html>

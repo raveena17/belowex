@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="postitem">
+<h2>Login</h2>
+<!--<form action="/datalist/" method="POST">-->
+<form action="/login/" method="POST">
+<p align="center">{{ msg }} </p>
+<table border="0" cellpadding="5" cellspacing="5" width="100%">
+    <tr>
+        <td align="center">Username:&nbsp;&nbsp; <input type="text"  style="width:200px"; id="username"  name="username"/></td>
+    </tr>
+    <tr>
+        <td align="center">Password:&nbsp;&nbsp; <input type="password"  style="width:200px"; id="password"  name="password"/></td>
+    </tr>
+    <tr>
+        <td style="padding-left:250px";>
+        <input type="submit" value="login" style="margin-right:10px;" />
+        <input type="button" value="cancel" onClick="window.location.href='/home/'"/>
+        </td>
+    </tr>
+</table>
+</form>
+</div>
+{% endblock %}
