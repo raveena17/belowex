@@ -1,0 +1,395 @@
+{% extends "base.html" %}
+
+{% block stylesheet %}
+    <link rel="stylesheet" type="text/css" href="/static/css/base.css" title="standard-css1" />
+    <link href="/static/css/forms.css" rel="stylesheet" type="text/css" />
+    <link href="/static/css/select2-amc-min.css" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block script %}
+    <script type="application/javascript" language="JavaScript" src="/static/js/Validation.js"></script>
+    
+    <script type="application/javascript" src="/static/js/jquery-date.js"></script>
+    <script type="application/javascript" src="/static/js/select2.js"></script>
+    <link href="/static/css/jquery-daterange-ui.css" rel="stylesheet" type="text/css" />
+    <script type="application/javascript" src="/static/js/jquery-daterange-ui.js"></script>
+    <script src="/static/js/jquery.validate.min.js"></script>
+    <script src="/static/js/additional-methods.min.js"></script>
+{% endblock %}
+
+{% block title %} Task {% endblock %}
+
+{% block contentdata %}
+    <style>
+        form { padding: 10px; }
+        .header{position: absolute; text-align: left; left: 182px;}
+        .element { width: 100%; min-height: 30px; }
+        .field { width: 59%; float:left; min-height: 46px;}
+        .label { width: 21%; float: left; min-height: 35px; margin-left: 10px;}
+        input[type=text]{ width:185px;}
+        input[type=date]{ width:185px; background-color: white}
+        input[type=number]{ width:185px;}
+        select { width: 170px;  background-color: white}
+        #report_form{position: absolute; top: 150px;}
+        .class_Repeat {position: absolute; text-align: right; left: 440px; top: 150px; width: 90px;}
+        .class_Frequency{position: absolute; text-align: left; left: 520px; top: 150px;-+}
+        #id_remarks{width: 185px;height: 55px;}
+        /*#id_empid.readonly*/
+        #id_empid{'readonly': True}
+        #id_half{margin-left: -28%;}
+        #id_short{margin-left: -28%;}
+        textarea{
+                border: 1px solid #ccc;
+                width: 32%;}
+        select {width: 193px; background-color: white}
+    </style>
+
+    <script>
+        $(document).ready(function(){
+            $('#cancel').click(function(){
+                window.location.href = "/leave/list/";
+            });
+        });
+
+        $( function() {
+
+          $("#id_leave_date").datepicker({ beforeShowDay: $.datepicker.noWeekends })
+        });
+
+        $( function() {
+            var dateformat = "yy-mm-dd",
+            from = $("#id_leave_from").datepicker({
+                defaultDate: "+1w",
+                changeMonth: true,
+                dateFormat: "yy-mm-dd",
+                beforeShowDay: $.datepicker.noWeekends
+              }).on( "change", function() {
+                  to.datepicker( "option", "minDate", getDate(this ));
+              }),
+              
+            to = $( "#id_leave_to" ).datepicker({
+              defaultDate: "+1w",
+              changeMonth: true,
+              dateFormat: "yy-mm-dd",
+              beforeShowDay: $.datepicker.noWeekends
+            })
+            .on( "change", function() {
+              from.datepicker( "option", "maxDate", getDate( this ) );
+            });
+       
+          function getDate( element ) {
+            var date;
+            try {
+              date = $.datepicker.parseDate( dateformat, element.value );
+            } catch( error ) {
+              date = null;
+            }
+            
+            return date;
+          }
+
+        }); 
+
+//Current Status Table
+      // $.ajax({
+      //   url : '/leave/status/',
+      //   type : "GET",
+      //   async: false,
+      //   success : function(datas){
+      //     alert(datas)
+      //     console.log(datas)
+      //      $("#tab1").html(datas);
+      //   }
+      // });
+
+
+      // $.ajax({
+      //   url : '/leave/status/',
+      //   type : "GET",
+      //   async: false,
+      //   success : function(datas){
+      //     // alert(datas)
+      //     console.log(datas)
+      //      // $("#tab1").html(datas);
+      //      $("#tab1").dataTable()
+      //   }
+      // });
+
+
+
+// no of days validation
+    $(function() {
+        $("#id_leave_from").datepicker();
+        $("#id_leave_from").on("change",function(){
+            updateAppliedFor();
+        });
+        $("#id_leave_to").on("change",function(){
+            updateAppliedFor();              
+        });
+                     
+    });
+
+    function updateAppliedFor(){
+        var from_date = $("#id_leave_from").val();
+        var to_date = $("#id_leave_to").val();
+        if( to_date != null && from_date != null ){
+            $.ajax({
+                url : '/leave/holiday/',
+                type : "GET",
+                async: false,
+                success : function(holidays){
+                    var count = 0;
+                    console.log(holidays);
+                    var fromDate = new Date(from_date);
+                    var toDate = new Date(to_date);
+                    for (var d = fromDate; d <= toDate; d.setDate(d.getDate() + 1)) {
+                        var weekday = d.getDay();
+                        if( weekday != 0 && weekday != 6 ){
+                            var is_holiday = false;
+                            for(var i=0;i<holidays.length;i++){
+                                var holiday = holidays[i];
+                                console.log(holiday[0].slice(0, 10) , formatDate(d));
+                                console.log(holiday[0].slice(0, 10) == formatDate(d));
+                                if( holiday[0].slice(0, 10) == formatDate(d) ){
+                                    is_holiday = true;
+                                }
+                            }
+                            if( !is_holiday ){
+                                count++;
+                            }
+                        }
+                    }
+                    $('#id_no_of_days').val(count);
+                }
+            });
+        }
+    }
+
+
+    function formatDate(d) {
+            month = '' + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            year = d.getFullYear();
+
+        if (month.length < 2) month = '0' + month;
+        if (day.length < 2) day = '0' + day;
+
+        return [year, month, day].join('-');
+    }
+
+
+     $(document).ready(function(){
+       $("#ShortLeave_id").click(function(){
+       var url="/leave/short/create/";
+       var flag=false;
+       $("input:checkbox[name=choice]:checked").each(function(){
+           if(!flag)
+           {
+             url=url+$(this).val();
+             flag=true;// To trace if first query string added
+           }
+           else
+           {
+             url=url+"&choice="+$(this).val();
+           }         
+         });
+         //alert(url);
+         window.location = url;
+       });
+    });  
+
+ // response = $.parseJSON(listdata);
+
+      // $(function() {
+      //     $.each(listdata, function(key, value) {
+      //         var $tr = $('<tr>').append(
+      //             $('<td>').text(value.leave_type),
+      //             $('<td>').text(value.current_balence),
+      //             $('<td>').text(value.applied_for),
+      //             $('<td>').text(value.balence_after_approval),
+      //         ); 
+      //         console.log($tr.wrap('<p>').html());
+      //     });
+      // });
+
+
+      // $.ajax({
+      //   url : '/leave/status/',
+      //   type : "GET",
+      //   async: false,
+      //   success : function(listdata){
+      //     alert("ok")
+      //     console.log(listdata)
+      //     $.each(listdata, function(key, value) {
+      //       console.log(key)
+      //       console.log(value.leave_type)
+      //         var tr = $("<tr />")
+      //        $.each(value, function(k, v) {
+      //          tr.append(
+      //            $("<td />", {
+      //              html: v
+      //             })[0].outerHTML
+      //          );
+      //        })
+      //         $("tab1").append(tr)
+      //        })
+      //     }
+      //   });
+
+
+      $.ajax({
+        url : '/leave/status/',
+        type : "GET",
+        async: false,
+        success : function(datas){
+          // alert(datas)
+          console.log(datas)
+           $("#tab1").html(datas);
+           // $("#tab1").dataTable()
+        }
+      });
+
+    </script>
+
+    <div class="header">Leave Application</div>
+    
+    <form  id="report_form" name="report_form" action="" method="POST">
+
+        {% csrf_token %}
+
+        {% for field in form %}
+            <div class="label">{{field.label}}: </div>
+            <div class="field">{{field}}</div>
+        {% endfor %}
+
+        {% for field in short_leave_form %}
+            <div class="label">{{field.label}}: </div>
+            <div class="field">{{field}}</div>
+        {% endfor %}
+
+
+
+        <button type="submit" style="position: absolute; left:145px; bottom: -25px">Submit</button><br><br>
+    </form><br>
+
+<div id="tab1">
+   <!-- {% include "leave_table.html" %} -->
+</div>
+{% endblock %}
+
+
+
+
+
+
+
+
+    <!-- <div class="header">Leave Application</div> -->
+    
+    <!-- <form  id="report_form" name="report_form" action="" method="POST"> -->
+        <!-- <a href="/leave/short/create/">
+        <input type="checkbox"></a> -->
+
+        <!-- <a href="/leave/list/">
+        <input type="checkbox" name="short_leave" value="Short">Short
+        <input type="checkbox" name="halfday_leave" value="Half">Half
+        </a> -->
+
+   <!--      <div class="label">{{l_form.half.label}}:
+        {{ l_form.half }}</div>
+        <div class="label">{{l_form.short.label}}:
+        {{ l_form.short }}</div> -->
+
+        <!-- {% csrf_token %} -->
+
+<!--         {% for field in l_form %}
+            <div class="lform", id="lform_id">
+                <div class="label">{{field.label}}:</div><div class="field">{{field}}</div>
+            </div>
+        {% endfor %} -->
+<!-- 
+        {% for field in form %}
+            <div class="label">{{field.label}}: </div>
+            <div class="field">{{field}}</div>
+        {% endfor %}
+
+        {% for field in short_leave_form %}
+            <div class="label">{{field.label}}: </div>
+            <div class="field">{{field}}</div>
+        {% endfor %}
+
+
+        <button type="submit" style="position: absolute; left:145px; bottom: -25px">Submit</button><br><br>
+    </form><br>
+  <form> 
+
+ <div id="tab2">
+   {% include "leave_table.html" %}
+</div>
+
+
+
+
+{endblock %} -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- function workingDaysBetweenDates(startDate, endDate) {
+  
+        // Validate input
+        if (endDate < startDate)
+            return 0;
+        
+        // Calculate days between dates
+        var millisecondsPerDay = 86400 * 1000; // Day in milliseconds
+        startDate.setHours(0,0,0,1);  // Start just after midnight
+        endDate.setHours(23,59,59,999);  // End just before midnight
+        var diff = endDate - startDate;  // Milliseconds between datetime objects    
+        var days = Math.ceil(diff / millisecondsPerDay);
+        
+        // Subtract two weekend days for every week in between
+        var weeks = Math.floor(days / 7);
+        days = days - (weeks * 2);
+
+        // Handle special cases
+        var startDay = startDate.getDay();
+        var endDay = endDate.getDay();
+        
+        // Remove weekend not previously removed.   
+        if (startDay - endDay > 1)         
+            days = days - 2;      
+        
+        // Remove start day if span starts on Sunday but ends before Saturday
+        if (startDay == 0 && endDay != 6)
+            days = days - 1  
+                
+        // Remove end day if span ends on Saturday but starts after Sunday
+        if (endDay == 6 && startDay != 0)
+            days = days - 1  
+        
+        return days;
+    }
+ -->

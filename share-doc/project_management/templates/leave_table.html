@@ -1,0 +1,50 @@
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
+</head>
+
+
+<script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
+  <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+
+<script>
+  $(function(){
+    $("#tab1").dataTable();
+  })
+</script>
+
+
+
+<body>
+  <table id="tab1">
+    <thead>
+      <tr>
+              
+          <th>Leave Type</th>
+          <th>Current Balance</th>
+          <th>Applied For</th>
+          <th>Balance After Approval</th>
+
+
+      </tr>
+    </thead>
+    <tbody>
+      {% for data in datas %}
+      <tr>
+          <td align="center">{{data.leave_type}}</td>
+          <td align="center">{{data.current_balence}}</td>
+          <td align="center">{{data.appied_for}}</td>
+          <td align="center">{{data.balence_after_approval}}</td>
+      </tr>
+      {% endfor %}
+
+
+    </tbody>
+  </table>
+  
+</body>
+</html>
+
+
+
+
