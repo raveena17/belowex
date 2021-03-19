@@ -16,7 +16,7 @@ django-password-reset==0.9
 django-tables2==1.10.0
 django-utils==0.0.2
 django-webtest==1.9.2
-djangorestframework==3.4.7
+djangorestframework==3.11.2
 html5lib==1.0b8
 ldap==1.0.2
 ldap3==2.4
