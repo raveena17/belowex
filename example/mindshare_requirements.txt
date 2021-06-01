@@ -38,7 +38,7 @@ reportlab==2.4
 six==1.11.0
 sorl-thumbnail==12.4a1
 surlex==0.2.0
-urllib3==1.22
+urllib3==1.26.5
 virtualenv==15.1.0
 vobject==0.9.4.1
 Whoosh==0.3.2
