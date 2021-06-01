@@ -103,7 +103,7 @@ tornado==4.4.2
 tqdm==4.14.0
 Unirest==1.1.7
 urlgrabber==3.9.1
-urllib3==1.21.1
+urllib3==1.26.5
 virtualenv==15.1.0
 vobject==0.9.4.1
 webencodings==0.5.1
