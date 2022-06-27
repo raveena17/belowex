@@ -34,7 +34,7 @@ python-dateutil==2.6.0
 python-ldap==2.4.44
 pytz==2017.3
 PyYAML==3.12
-reportlab==2.4
+reportlab==3.5.55
 six==1.11.0
 sorl-thumbnail==12.4a1
 surlex==0.2.0

@@ -89,7 +89,7 @@ python-memcached==1.58
 pytz==2016.10
 PyYAML==3.12
 redis==2.10.5
-reportlab==2.4
+reportlab==3.5.55
 requests==2.11.1
 screenutils==0.0.1.6.1
 singledispatch==3.4.0.3
